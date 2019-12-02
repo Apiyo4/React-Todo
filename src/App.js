@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm';
 import TodoList from './components/TodoComponents/TodoList';
 
@@ -32,9 +32,11 @@ class App extends React.Component {
     super(props);
     this.state={
         inputTodo : '',
+        todos : todoList,
     }
 }
-addTodo = ()=>{
+addTodo = (event)=>{
+  event.preventDefault();
   alert('To do added');
 }
 clearTodo = ()=>{
@@ -47,12 +49,13 @@ onValueChange = (event)=>{
   })
 }
 
+
   render() {
     return (
       <div>
         
         <h2>Welcome to your Todo App!</h2>
-        <TodoList todoList= {todoList} />
+        <TodoList todos= {this.state.todos} />
         <TodoForm  
         inputTodo = {this.state.inputTodo}
         addTodo = {this.addTodo}

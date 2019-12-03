@@ -66,8 +66,11 @@ crossTodo = ( id)=>{
  }),
   });
  }
-clearTodo = ()=>{
-  alert('todo cleared');
+clearTodo = (event)=>{
+  event.preventDefault();
+  this.setState({
+    todos: this.state.todos.filter(todo=> !(todo.completed=== true))
+  })
 }
 onValueChange = (event)=>{
   const { value} = event.target;
@@ -81,7 +84,7 @@ onValueChange = (event)=>{
       <div>
         
         <h2>Welcome to your Todo App!</h2>
-        {console.log(this.state.todos)}
+       
     
         <TodoList todos= {this.state.todos} 
         crossTodo={this.crossTodo}

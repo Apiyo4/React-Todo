@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoForm from './components/TodoComponents/TodoForm';
 import TodoList from './components/TodoComponents/TodoList';
+import uuid from 'uuid';
 
 let todoList = [
   {
@@ -36,9 +37,35 @@ class App extends React.Component {
     }
 }
 addTodo = (event)=>{
-  event.preventDefault();
-  alert('To do added');
+  const {value} = event.target;
+  const newTodo = {
+    task: this.state.inputTodo,
+    id: uuid(),
+    completed: false
+  }    
+   event.preventDefault();
+  var newArray = this.state.todos.slice();    
+    newArray.push(newTodo);   
+    this.setState({
+    todos : newArray,
+    inputTodo: ''
+  })
 }
+crossTodo = ( id)=>{
+  
+  this.setState({
+    todos: this.state.todos.map(todo => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+           completed: !(todo.completed)
+       };
+     } else {
+       return todo;
+     }
+ }),
+  });
+ }
 clearTodo = ()=>{
   alert('todo cleared');
 }
@@ -49,13 +76,16 @@ onValueChange = (event)=>{
   })
 }
 
-
   render() {
     return (
       <div>
         
         <h2>Welcome to your Todo App!</h2>
-        <TodoList todos= {this.state.todos} />
+        {console.log(this.state.todos)}
+    
+        <TodoList todos= {this.state.todos} 
+        crossTodo={this.crossTodo}
+         />
         <TodoForm  
         inputTodo = {this.state.inputTodo}
         addTodo = {this.addTodo}

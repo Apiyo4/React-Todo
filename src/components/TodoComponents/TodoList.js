@@ -9,10 +9,13 @@ export default class TodoList extends Component{
     render(){
         return(
             <div>
-             {   console.log(this.props.todos)}
+             
           {this.props.todos.map(todo =>{
             // return <p>{todo.task}</p>;
-           return  <Todo todo = {todo} key={todo.id}/>
+           return  <Todo todo = {todo} key={todo.id} 
+           crossTodo={this.props.crossTodo}
+            //  todos= {this.props.todos}
+        />
           })}
             
             </div>
